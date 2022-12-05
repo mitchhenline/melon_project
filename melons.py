@@ -11,7 +11,7 @@ class Melon():
         self.seedless = seedless
 
     def __repr__(self):
-        return f"<melon: {self.melon_id}, {self.common_name}>"
+        return f"<melon: {self.melon_id}, {self.common_name}, ${self.price:.2f}>"
 
     def price_str(self):
         return f"${self.price:.2f}"
@@ -32,7 +32,6 @@ with open("melons.csv") as csvfile:
             eval(row['seedless']))
 
         melon_dict[melon_id] = melon
-        pprint(melon_dict)
         
 
 
@@ -43,4 +42,8 @@ def read_melon(file):
         for row in reader:
             pprint(row)
 
-# read_melon("melons.csv")
+def get_melon_id(melon_id):
+    return melon_dict[melon_id]
+
+def get_melon_list():
+    return list(melon_dict.values())
