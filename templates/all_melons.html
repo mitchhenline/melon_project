@@ -9,7 +9,7 @@
         <h5>
             <a href="{{ url_for('melon_details', melon_id=melon.melon_id) }}">{{ melon.common_name }}</a>
         </h5>
-        {{ melon.price_str() }}
+    {{ melon.price_str() }}
     </div>
     {% endfor %}
 {% endblock %}
