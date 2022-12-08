@@ -87,6 +87,14 @@ def login():
 
     return render_template("login.html", form=form)
 
+@app.route("/logout")
+def logout():
+    """log user out"""
+
+    del session["username"]
+    flash("Logged out.")
+    return redirect("/login")
+
 
 # ______ ROUTES END _______
 

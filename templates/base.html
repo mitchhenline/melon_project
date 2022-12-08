@@ -14,6 +14,11 @@
                 <div class="navbar-nav">
                     <a class="nav-link" href="/melons">Melons</a>
                     <a class="nav-link" href="/cart">My Cart</a>
+                    {% if 'username' in session %}
+                        <a class="nav-link" href="/logout">Log Out</a>
+                    {% else %}
+                        <a class="nav-link" href="/login">Log In</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
