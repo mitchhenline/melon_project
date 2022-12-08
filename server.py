@@ -26,6 +26,9 @@ def melon_details(melon_id):
 
 @app.route('/add_to_cart/<melon_id>')
 def add_to_cart(melon_id):
+
+    if 'username' not in session:
+        return redirect('/login')
     
     if 'cart' not in session:
         session['cart'] = {}
@@ -42,6 +45,9 @@ def add_to_cart(melon_id):
 def show_cart():
     order_total = 0
     cart_melons = []
+
+    if 'username' not in session:
+        return redirect('/login')
 
     cart = session.get("cart", {})
 
@@ -95,6 +101,10 @@ def logout():
     flash("Logged out.")
     return redirect("/login")
 
+# error handler page
+@app.errorhandler(404)
+def error_404(e):
+    return render_template("404.html")
 
 # ______ ROUTES END _______
 
