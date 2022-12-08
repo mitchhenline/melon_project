@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, flash, request, session
-import jinja2, melons
+import jinja2, melons, customers
+from forms import LoginForm
 
 app = Flask(__name__)
 app.jinja_env.undefined = jinja2.StrictUndefined
@@ -62,6 +63,29 @@ def empty_cart():
     session['cart'] = {}
 
     return redirect('/cart')
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """log user into site"""
+    form = LoginForm(request.form)
+    # Form is submitted with valid data
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+
+    #Check to see if a registered user with this username exists
+        user = customers.get_by_username(username)
+
+        if not user or user['password'] != password:
+            flash("Invalid username or password")
+            return redirect('/login')
+
+    # Store username in session to keep track of logged user
+        session['username'] = user['username']
+        flash('Logged in.')
+        return redirect("/melons")
+
+    return render_template("login.html", form=form)
 
 
 # ______ ROUTES END _______
